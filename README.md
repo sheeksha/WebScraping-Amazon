@@ -46,8 +46,8 @@ price = price.strip()[1:6]
 print(title)
 print(price)
 ```
-Bburago B18-38063N Formula 1 MCLAREN F1 MCL 36 (2022) Norris 1:43 Scale Die-Cast Collectible Race Car, Assorted Colours
-18.99
+![image](https://github.com/sheeksha/WebScraping-Amazon/assets/69764380/356b7d3f-4b88-479c-aa4c-688e103cb1b4)
+
 
 ### Get time data
 ```
@@ -56,8 +56,6 @@ t = datetime.datetime.now().time()
 print(today)
 print(time)
 ```
-2024-01-03
-<module 'time' (built-in)>
 
 ### Create CSV file to store extracted data
 ```
