@@ -2,7 +2,7 @@
 
 
 ### 1. Import libraries
-```
+```ruby
 from bs4 import BeautifulSoup
 import requests
 import time
@@ -12,14 +12,15 @@ import pandas
 import smtplib #sending email
 ```
 
-### 2. Get website linl
-```
+### 2. Get website link
+```ruby
 url = 'https://www.amazon.com/Bburago-B18-38063N-pre-Built-Assorted-Colours/dp/B0BSNSKKGX/ref=sr_1_1?crid=29CI4WCW0J9SF&keywords=f1+car+model+mclaren+lando+norris&qid=1703566799&sprefix=f1+car+model+mclaren+lando+norr%2Caps%2C343&sr=8-1'
 ```
 
 ### 3. Get User agent for your computer at https://httpbin.org/get and connect to website
-```
+```ruby
 headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36", "Accept-Encoding":"gzip, deflate", "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "DNT":"1","Connection":"close", "Upgrade-Insecure-Requests":"1"}
+
 page = requests.get(url, headers=headers)
 
 soup = BeautifulSoup(page.content, "html.parser")
@@ -28,7 +29,7 @@ soup = BeautifulSoup(page.content, "html.parser")
 ```
 
 ### 4. Prettify output and extract useful information
-```
+```ruby
 soup_prettify = BeautifulSoup(soup.prettify(), "html.parser")
 
 # print(soup_prettify)
@@ -42,7 +43,7 @@ print(price)
                                           
 
 ### 5. Strip extra white/blank spaces
-```
+```ruby
 title = title.strip()
 price = price.strip()[1:6]
 
@@ -53,7 +54,7 @@ print(price)
 
 
 ### 6. Get time data
-```
+```ruby
 today = datetime.date.today()
 t = datetime.datetime.now().time()
 print(today)
@@ -61,7 +62,7 @@ print(time)
 ```
 
 ### 7. Create CSV file to store extracted data
-```
+```ruby
 header = ['Title', 'Price', 'Date', 'Time']
 data = [title, price, today, t]
 
@@ -74,21 +75,21 @@ with open('McLarenCarModelPrice.csv', 'w', newline='', encoding='UTF8') as f:
 ```
 
 ### 8. Quick visualization of csv file
-```
+```ruby
 df = pandas.read_csv(r"C:\Users\MRT\DataAnalystProjects\McLarenCarModelPrice.csv")
 
 df
 ```
 
 ### 9. Append new data to csv
-```
+```ruby
 with open('McLarenCarModelPrice.csv', 'a+', newline='', encoding='UTF8') as f:
     writer = csv.writer(f)
     writer.writerow(data)
 ```
 
 ### 10. Create a function to check price
-```
+```ruby
 def check_price():
     url = 'https://www.amazon.com/Bburago-B18-38063N-pre-Built-Assorted-Colours/dp/B0BSNSKKGX/ref=sr_1_1?crid=29CI4WCW0J9SF&keywords=f1+car+model+mclaren+lando+norris&qid=1703566799&sprefix=f1+car+model+mclaren+lando+norr%2Caps%2C343&sr=8-1'
 
@@ -125,7 +126,7 @@ def check_price():
 ```
 
 ### 11. Create a timer to check website everyday
-```
+```ruby
 while(True):
     check_price()
     time.sleep(86,400)
@@ -133,7 +134,7 @@ while(True):
 
 
 ### 12. Send an email when the product price reduces to $15.00
-```
+```ruby
 def send_mail():
     server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
     server.ehlo()
