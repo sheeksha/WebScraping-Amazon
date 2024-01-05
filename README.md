@@ -1,20 +1,23 @@
 # WebScraping-Amazon
 
 
-### Import libraries
+### 1. Import libraries
 ```
 from bs4 import BeautifulSoup
 import requests
 import time
 import datetime
+import csv
+import pandas
 import smtplib #sending email
 ```
 
-### Connect to the website
+### 2. Get website linl
 ```
 url = 'https://www.amazon.com/Bburago-B18-38063N-pre-Built-Assorted-Colours/dp/B0BSNSKKGX/ref=sr_1_1?crid=29CI4WCW0J9SF&keywords=f1+car+model+mclaren+lando+norris&qid=1703566799&sprefix=f1+car+model+mclaren+lando+norr%2Caps%2C343&sr=8-1'
 ```
-### Get User agent for your computer at https://httpbin.org/get
+
+### 3. Get User agent for your computer at https://httpbin.org/get and connect to website
 ```
 headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36", "Accept-Encoding":"gzip, deflate", "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "DNT":"1","Connection":"close", "Upgrade-Insecure-Requests":"1"}
 page = requests.get(url, headers=headers)
@@ -24,7 +27,7 @@ soup = BeautifulSoup(page.content, "html.parser")
 # print(soup)
 ```
 
-### Prettify output and extract useful information
+### 4. Prettify output and extract useful information
 ```
 soup_prettify = BeautifulSoup(soup.prettify(), "html.parser")
 
@@ -38,7 +41,7 @@ print(price)
 
                                           
 
-### Strip extra white/blank spaces
+### 5. Strip extra white/blank spaces
 ```
 title = title.strip()
 price = price.strip()[1:6]
@@ -49,7 +52,7 @@ print(price)
 ![image](https://github.com/sheeksha/WebScraping-Amazon/assets/69764380/356b7d3f-4b88-479c-aa4c-688e103cb1b4)
 
 
-### Get time data
+### 6. Get time data
 ```
 today = datetime.date.today()
 t = datetime.datetime.now().time()
@@ -57,10 +60,8 @@ print(today)
 print(time)
 ```
 
-### Create CSV file to store extracted data
+### 7. Create CSV file to store extracted data
 ```
-import csv
-
 header = ['Title', 'Price', 'Date', 'Time']
 data = [title, price, today, t]
 
@@ -72,23 +73,21 @@ with open('McLarenCarModelPrice.csv', 'w', newline='', encoding='UTF8') as f:
     writer.writerow(data)
 ```
 
-### Quick visualization of csv file
+### 8. Quick visualization of csv file
 ```
-import pandas
-
 df = pandas.read_csv(r"C:\Users\MRT\DataAnalystProjects\McLarenCarModelPrice.csv")
 
 df
 ```
 
-### Append new data to csv
+### 9. Append new data to csv
 ```
 with open('McLarenCarModelPrice.csv', 'a+', newline='', encoding='UTF8') as f:
     writer = csv.writer(f)
     writer.writerow(data)
 ```
 
-### Create a function to check price
+### 10. Create a function to check price
 ```
 def check_price():
     url = 'https://www.amazon.com/Bburago-B18-38063N-pre-Built-Assorted-Colours/dp/B0BSNSKKGX/ref=sr_1_1?crid=29CI4WCW0J9SF&keywords=f1+car+model+mclaren+lando+norris&qid=1703566799&sprefix=f1+car+model+mclaren+lando+norr%2Caps%2C343&sr=8-1'
@@ -125,16 +124,15 @@ def check_price():
         send_mail()
 ```
 
-### Create a timer to check website everyday
+### 11. Create a timer to check website everyday
 ```
-import time
 while(True):
     check_price()
     time.sleep(86,400)
 ```
 
 
-### Send an email when the product price reduces to $15.00
+### 12. Send an email when the product price reduces to $15.00
 ```
 def send_mail():
     server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
