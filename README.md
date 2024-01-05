@@ -34,23 +34,8 @@ price = soup_prettify.find(id='tp-tool-tip-subtotal-price-value').get_text()
 print(title)
 print(price)
 ```
-              Bburago B18-38063N Formula 1 MCLAREN F1 MCL 36 (2022) Norris 1:43 Scale Die-Cast Collectible Race Car, Assorted Colours
-             
+![image](https://github.com/sheeksha/WebScraping-Amazon/assets/69764380/247c4b9a-c3c7-4c97-9bf7-8cc09816ef6a)
 
-
-                                          $18.99
-                                         
-
-
-
-
-                                           18
-                                           
-                                            .
-                                           
-
-
-                                           99
                                           
 
 ### Strip extra white/blank spaces
